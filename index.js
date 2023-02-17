@@ -59,6 +59,7 @@ const promptUser = () =>
       },
     ])
     .then((answers) => {
+      //creating the template literal string to pass into the README file that gets generated
       const generateREADME = 
 `# ${answers.name.toUpperCase()}:
 
@@ -100,11 +101,7 @@ This is my github to see my projects ${answers.githubQuestion}
 
 If you have any questions please feel free to contact me at ${answers.emailQuestion}`
 
-    // fs.writeFile(`README.md`, generateREADME, () =>{
-    //     console.log("readme generated");
-    // })
-    // });
-
+    // Using fs.writeFile to create a new read me in the "Dist" folder using the information received from the terminal
     fs.writeFile(path.join(process.cwd() + "/dist/", "README.md"),generateREADME,(err) => {
       if (err) {
         console.log("Could not generate file");
@@ -115,8 +112,9 @@ If you have any questions please feel free to contact me at ${answers.emailQuest
 
   })
     
-  
+  // Function to render the license badge depending on which option the use picks
 const renderLicense = (license) =>{
+
   switch (license) {
     case "MIT":
       return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
@@ -125,7 +123,7 @@ const renderLicense = (license) =>{
       return `[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)`
     
     case "GNUPLv3":
-      return `[![License: ISC](https://img.shields.io/badge/License-GNUPLv3-blue.svg)](https://opensource.org/licenses/GNUPLv3)`
+      return `[![License: ISC](https://img.shields.io/badge/License-GNUPLv3-blue.svg)](https://opensource.org/license/gpl-3-0/)`
   } 
 }
 
