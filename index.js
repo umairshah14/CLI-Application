@@ -1,7 +1,10 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const path = require("path");
+let BADGEstring
 
-// prompy series of questions for user
+
+// prompt series of questions for user
 const promptUser = () =>
   inquirer
     .prompt([
@@ -33,11 +36,12 @@ const promptUser = () =>
       {
         type: "list",
         name: "License",
-        message: "Please select one of the following licenses (USE ARROW KEYS): ",
+        message:
+          "Please select one of the following licenses (USE ARROW KEYS): ",
         choices: ["MIT", "ISC", "GNUPLv3"],
-        filter(val){
-            return val.toUpperCase()
-        }
+        filter(val) {
+          return val.toUpperCase();
+        },
       },
       {
         type: "input",
@@ -61,21 +65,21 @@ const promptUser = () =>
       },
     ])
     .then((answers) => {
-      const generateREADME = 
+      const generateREADME =
 `# ${answers.name}:
-
+${renderLicense(answers.License)}
 
 ## Description:
 ${answers.description.toUpperCase()}} 
 
 ## Table of Contents:
- * Description
- * Installation
- * Usage
- * License
- * Contributing
- * Tests
- * Questions
+ * [Project Description](#description)
+ * [Installation](#installation)
+ * [Usage](#usage)
+ * [License](#license)
+ * [Contributing](#contributors) 
+ * [Tests](#tests)
+ * [Questions](#questions)
 
 ## Installation:
 ${answers.installation} 
@@ -99,11 +103,29 @@ ${answers.TestInstructions}
 ## Questions:
 This is my github to see my projects ${answers.githubQuestion}
 
-Feel free to contact me at ${answers.emailQuestion}`
+If you have any questions please feel free to contact me at ${answers.emailQuestion}`;
 
-    fs.writeFile(`README.md`, generateREADME, () =>{
-        console.log("readme generated");
-    })
-    });
+      fs.writeFile(path.join(process.cwd() + "/dist/", "README.md"),generateREADME,(err) => {
+          if (err) {
+            console.log("Could not generate file");
+          } else {
+            console.log("Success: new README.md file generated");
+          }
+        }
+      );
+});
+  
+const renderLicense = (license) =>{
+  switch (license) {
+    case "MIT":
+      return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
+    
+    case "ISC":
+      return `[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)`
+    
+    case "GNUPLv3":
+      return `[![License: ISC](https://img.shields.io/badge/License-GNUPLv3-blue.svg)](https://opensource.org/licenses/GNUPLv3)`
+  } 
+}
 
 promptUser()
