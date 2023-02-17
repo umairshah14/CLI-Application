@@ -109,7 +109,7 @@ If you have any questions please feel free to contact me at ${answers.emailQuest
       if (err) {
         console.log("Could not generate file");
       } else {
-        console.log("Success: new README.md file generated");
+        console.log("Success: New README file generated inside 'dist' folder.");
       }
     });
 
