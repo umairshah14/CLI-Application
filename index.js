@@ -1,8 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const path = require("path");
-let BADGEstring
-
 
 // prompt series of questions for user
 const promptUser = () =>
@@ -36,12 +34,11 @@ const promptUser = () =>
       {
         type: "list",
         name: "License",
-        message:
-          "Please select one of the following licenses (USE ARROW KEYS): ",
+        message: "Please select one of the following licenses (USE ARROW KEYS): ",
         choices: ["MIT", "ISC", "GNUPLv3"],
-        filter(val) {
-          return val.toUpperCase();
-        },
+        filter(val){
+            return val.toUpperCase()
+        }
       },
       {
         type: "input",
@@ -65,8 +62,9 @@ const promptUser = () =>
       },
     ])
     .then((answers) => {
-      const generateREADME =
+      const generateREADME = 
 `# ${answers.name}:
+
 ${renderLicense(answers.License)}
 
 ## Description:
@@ -103,17 +101,22 @@ ${answers.TestInstructions}
 ## Questions:
 This is my github to see my projects ${answers.githubQuestion}
 
-If you have any questions please feel free to contact me at ${answers.emailQuestion}`;
+If you have any questions please feel free to contact me at ${answers.emailQuestion}`
 
-      fs.writeFile(path.join(process.cwd() + "/dist/", "README.md"),generateREADME,(err) => {
-          if (err) {
-            console.log("Could not generate file");
-          } else {
-            console.log("Success: new README.md file generated");
-          }
-        }
-      );
-});
+    fs.writeFile(`README.md`, generateREADME, () =>{
+        console.log("readme generated");
+    })
+    });
+
+    // fs.writeFile(path.join(process.cwd() + "/dist/", "README.md"),generateREADME,(err) => {
+    //   if (err) {
+    //     console.log("Could not generate file");
+    //   } else {
+    //     console.log("Success: new README.md file generated");
+    //   }
+    // });
+
+    
   
 const renderLicense = (license) =>{
   switch (license) {
