@@ -24,7 +24,7 @@ const promptUser = () =>
       {
         type: "input",
         name: "Instructions",
-        message: "Enter instructions?",
+        message: "Enter usage instructions",
       },
       {
         type: "input",
@@ -40,7 +40,7 @@ const promptUser = () =>
       {
         type: "input",
         name: "Contribution",
-        message: "Enter contribution guidelines",
+        message: "Enter contributor name(s)",
       },
       {
         type: "input",
