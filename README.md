@@ -13,6 +13,9 @@ Below is a screenshot of what the terminal should look like once the program is 
 Below is a screenshot of what README file that is generated should look like.
 ![screenshot of the project](./assets/images/Screenshot%202023-02-20%20at%2016.31.23.png)
 
+Video walkthrough of the project
+
+
 
 ## Instructions
 
